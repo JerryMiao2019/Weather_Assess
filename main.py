@@ -46,4 +46,4 @@ def heapsort(a, len):
         a[0], a[i] = a[i], a[0]
         sift_down(a, 0, i - 1)
         i -= 1
-
+print(a)#sdasdf
