@@ -51,12 +51,6 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         a[i][0] = d[i][1]
     heapsort(a,20)
     print(a)
-a1 = int(input())
-a2 = int(input())
-a3 = int(input())
-a4 = int(input())
-a5 = float(input())
-a6 = int(input())
-main(a1,a2,a3,a4,a5,a6,5)
+main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),5)
 
 
