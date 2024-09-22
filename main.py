@@ -1,5 +1,4 @@
 import math
-a = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
 d = [['2020-4-1',1,26,53,9,30,0.68,61],
     ['2020-4-2',1,36,57,6,29,0.57,63],
     ['2020-4-3',1,38,55,7,32,0.65,66],
@@ -51,6 +50,11 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         a[i][0] = d[i][1]
     heapsort(a,20)
     print(a)
-main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),5)
+a = [list() for i in range(len(d))]
+for i in range(len(d)):
+    a[i].append(0)
+    a[i].append(0)
+print(a)
+main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),1)#k值为一
 
 
