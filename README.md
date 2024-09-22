@@ -1,1 +1,1 @@
-use knn to assess weather
+use knn to assess weather.
