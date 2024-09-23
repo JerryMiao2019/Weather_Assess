@@ -57,7 +57,7 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         quality = "轻度污染"
     elif a[0][0] == 3:
         quality = "中度污染"
-    elif a[0][0] == 4:
+    else :
         quality = "重度污染"
     print("空气质量为"+quality)
 a = [list() for i in range(len(d))]
