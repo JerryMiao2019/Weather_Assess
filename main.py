@@ -36,11 +36,11 @@ def sift_down(a, start, end):
             child = int(parent * 2 + 1)
 def heapsort(a, len):
     i = (len - 2) / 2
-    while(i >= 0):
+    while i >= 0:
         sift_down(a, i, len - 1)
         i -= 1
     i = len - 1
-    while(i > 0):
+    while i> 0:
         a[0], a[i] = a[i], a[0]
         sift_down(a, 0, i - 1)
         i -= 1
@@ -49,12 +49,21 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         a[i][1] = distance(d[i][2],d[i][3],d[i][4],d[i][5],d[i][6],d[i][7],x1,x2,x3,x4,x5,x6)
         a[i][0] = d[i][1]
     heapsort(a,20)
-    print(a)
+    if a[0][0] == 0:
+        quality = "优"
+    elif a[0][0] == 1:
+        quality = "良"
+    elif a[0][0] == 2:
+        quality = "轻度污染"
+    elif a[0][0] == 3:
+        quality = "中度污染"
+    elif a[0][0] == 4:
+        quality = "重度污染"
+    print("空气质量为"+quality)
 a = [list() for i in range(len(d))]
 for i in range(len(d)):
     a[i].append(0)
     a[i].append(0)
-print(a)
 main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),1)#k值为一
 
 
