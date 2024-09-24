@@ -67,3 +67,4 @@ for i in range(len(d)):
 main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),1)#k值为一
 
 
+
