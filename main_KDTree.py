@@ -19,53 +19,6 @@ d = [['2020-4-1',1,26,53,9,30,0.68,61],
     ['2020-4-18',1,66,76,7,49,0.91,103],
     ['2020-4-19',1,68,66,6,30,0.83,121],
     ['2020-4-20',0,11,32,3,13,0.38,79]]
-def distance(a1, a2, a3, a4, a5, a6, b1, b2, b3, b4, b5, b6):#欧几里得距离
-    return math.sqrt((a1-b1)**2 + (a2-b2)**2 + (a3-b3)**2 + (a4-b4)**2 + (a5-b5)**2 + (a6-b6)**2)
-#前为质量 后为大小
-'''def sift_down(a, start, end):
-    parent = int(start)
-    child = int(parent * 2 + 1)
-    while child <= end:
-        if child + 1 <= end and a[child][1] < a[child + 1][1]:
-            child += 1
-        if a[parent][1] >= a[child][1]:
-            return
-        else:
-            a[parent][1], a[child][1] = a[child][1], a[parent][1]
-            parent = child
-            child = int(parent * 2 + 1)
-def heapsort(a, len):
-    i = (len - 2) / 2
-    while i >= 0:
-        sift_down(a, i, len - 1)
-        i -= 1
-    i = len - 1
-    while i> 0:
-        a[0], a[i] = a[i], a[0]
-        sift_down(a, 0, i - 1)
-        i -= 1
-def main(x1,x2,x3,x4,x5,x6,kc):
-    for i in range(len(d)):
-        a[i][1] = distance(d[i][2],d[i][3],d[i][4],d[i][5],d[i][6],d[i][7],x1,x2,x3,x4,x5,x6)
-        a[i][0] = d[i][1]
-    heapsort(a,20)
-    if a[0][0] == 0:
-        quality = "优"
-    elif a[0][0] == 1:
-        quality = "良"
-    elif a[0][0] == 2:
-        quality = "轻度污染"
-    elif a[0][0] == 3:
-        quality = "中度污染"
-    else :
-        quality = "重度污染"
-    print("空气质量为"+quality)
-a = [list() for i in range(len(d))]
-for i in range(len(d)):
-    a[i].append(0)
-    a[i].append(0)
-main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),1)#k值为一
-'''
 #下为KD树
 pts=[[26,53,9,30,0.68,61],
     [36,57,6,29,0.57,63],
@@ -94,13 +47,10 @@ class Node():
         self.leftBranch = leftBranch
         self.rightBranch = rightBranch
         self.dimension = dimension
-
-
 class KDTree():
     def __init__(self, data):
         self.nearestPt = None
         self.nearestDis = math.inf
-
     def createKDTree(self, currPts, dimension):
         if (len(currPts) == 0):
             return None
@@ -109,20 +59,15 @@ class KDTree():
         leftBranch = self.createKDTree(sortedData[:mid], self.calDimension(dimension))
         rightBranch = self.createKDTree(sortedData[mid + 1:], self.calDimension(dimension))
         return Node(sortedData[mid], leftBranch, rightBranch, dimension)
-
     def calMedium(self, currPts):
         return len(currPts) // 2
-
     def calDimension(self, dimension):  # 区别就在于这里，几维就取余几
         return (dimension + 1) % len(targetPt)
-
     def calDistance(self, p0, p1):
         return math.sqrt((p0[0] - p1[0]) ** 2 + (p0[1] - p1[1]) ** 2)
-
     def getNearestPt(self, root, targetPt):
         self.search(root, targetPt)
         return self.nearestPt, self.nearestDis
-
     def search(self, node, targetPt):
         if node == None:
             return
@@ -145,12 +90,11 @@ def find(lookingfor,given):
     for i in range(len(lookingfor)):
         if given[0] == lookingfor[i][2] and given[1] == lookingfor[i][3] and given[2] == lookingfor[i][4] and given[3] == lookingfor[i][5] and given[4] == lookingfor[i][6] and given[5] == lookingfor[i][7]:
             return lookingfor[i][1]
-
 if __name__ == "__main__":
     kdtree = KDTree(pts)
     root = kdtree.createKDTree(pts, 0)
     pt, minDis = kdtree.getNearestPt(root, targetPt)
-    print("最近的点是", pt, "最小距离是", str(minDis))
+    #print("最近的点是", pt, "最小距离是", str(minDis))
     if find(d, pt) == 0:
         print("优")
     elif find(d, pt) == 1:
