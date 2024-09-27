@@ -22,6 +22,7 @@ d = [['2020-4-1',1,26,53,9,30,0.68,61],
 def distance(a1, a2, a3, a4, a5, a6, b1, b2, b3, b4, b5, b6):#欧几里得距离
     return math.sqrt((a1-b1)**2 + (a2-b2)**2 + (a3-b3)**2 + (a4-b4)**2 + (a5-b5)**2 + (a6-b6)**2)
 #前为质量 后为大小
+#以下为堆排
 def sift_down(a, start, end):
     parent = int(start)
     child = int(parent * 2 + 1)
@@ -45,6 +46,7 @@ def heapsort(a, len):
         sift_down(a, 0, i - 1)
         i -= 1
 def main(x1,x2,x3,x4,x5,x6,kc):
+    #将距离输入进a并将a排序
     for i in range(len(d)):
         a[i][1] = distance(d[i][2],d[i][3],d[i][4],d[i][5],d[i][6],d[i][7],x1,x2,x3,x4,x5,x6)
         a[i][0] = d[i][1]
@@ -61,7 +63,7 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         quality = "重度污染"
     print("空气质量为"+quality)
 a = [list() for i in range(len(d))]
-for i in range(len(d)):
+for i in range(len(d)):#生成一个空数组
     a[i].append(0)
     a[i].append(0)
 main(int(input()),int(input()),int(input()),int(input()),float(input()),int(input()),1)#k值为一

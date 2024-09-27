@@ -86,7 +86,7 @@ class KDTree():
                 self.search(node.rightBranch, targetPt)
             else:
                 self.search(node.leftBranch, targetPt)
-def find(lookingfor,given):
+def find(lookingfor,given):#查找数组中的最小数
     for i in range(len(lookingfor)):
         if given[0] == lookingfor[i][2] and given[1] == lookingfor[i][3] and given[2] == lookingfor[i][4] and given[3] == lookingfor[i][5] and given[4] == lookingfor[i][6] and given[5] == lookingfor[i][7]:
             return lookingfor[i][1]
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     kdtree = KDTree(pts)
     root = kdtree.createKDTree(pts, 0)
     pt, minDis = kdtree.getNearestPt(root, targetPt)
-    #print("最近的点是", pt, "最小距离是", str(minDis))
+    #最近的点是pt，最小距离是str(minDis))
     if find(d, pt) == 0:
         print("优")
     elif find(d, pt) == 1:
