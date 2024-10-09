@@ -63,6 +63,7 @@ def main(x1,x2,x3,x4,x5,x6,kc):
         quality = "重度污染"
     print("空气质量为"+quality)
 a = [list() for i in range(len(d))]
+print(a)
 for i in range(len(d)):#生成一个空数组
     a[i].append(0)
     a[i].append(0)
