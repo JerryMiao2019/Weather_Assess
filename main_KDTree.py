@@ -4,22 +4,15 @@ import csv
 import re
 
 a=[]
-with open('over.csv', 'r',encoding='utf-8') as file:
+with open('data.csv', 'r',encoding="utf-8") as file:
     i = 0
     reader = csv.reader(file)
     for row in reader:
         i=i+1#计算行数
         a.append(row)#向数组中加入数据
-    i = int(i/2)
-    for j in range(i):
-        del a[-i]
-    print(a)
     for j in range(i):#转换string到int和float
         for k in range(1,8):
             a[j][k] = float(a[j][k])
-            print(j)
-            print(k)
-                
 pts = [list() for k in range(i)]# 生成一个空数组
 for k in range(i):  # 初始化pts
     pts[k].append(0)
@@ -124,7 +117,6 @@ elif int(choose) == 2:
         for k in range(i):  # 生成一个空数组
             result[k].append(0)
             result[k].append(0)
-        print(result)
         for j in range(i):#转换string到int和float
             result[j][0] = input_1[j][0]
             for k in range(1,7):
@@ -135,7 +127,7 @@ elif int(choose) == 2:
             del b[j][0]
             result[j][1] = main(b[j])
         print(result)
-        f = open('result.csv', 'w',encoding='utf-8')
+        f = open('result.csv', 'w',encoding='utf-8',newline="")
         with f:
             writer = csv.writer(f)
             for row in result:

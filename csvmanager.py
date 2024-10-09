@@ -25,8 +25,7 @@ with open('_all.csv', 'r', encoding='utf-8') as file:
             else:
                 a[j][k] = float(a[j][k])
     print(a)
-    f = open('../over.csv', 'w', encoding='utf-8')
+    f = open('data.csv', 'w', encoding='utf-8', newline='')
     with f:
         writer = csv.writer(f)
-        for row in a:
-            writer.writerow(row)
+        writer.writerows(a)
