@@ -4,20 +4,21 @@ import csv
 import re
 
 a=[]
-with open('data.csv', 'r') as file:
+with open('over.csv', 'r',encoding='utf-8') as file:
     i = 0
     reader = csv.reader(file)
     for row in reader:
         i=i+1#计算行数
-        del row[-1]
-        del row[-1]
         a.append(row)#向数组中加入数据
+    i = int(i/2)
+    for j in range(i):
+        del a[-i]
+    print(a)
     for j in range(i):#转换string到int和float
         for k in range(1,8):
-            if k ==1:
-                a[j][k] = int(a[j][k])
-            else:
-                a[j][k] = float(a[j][k])
+            a[j][k] = float(a[j][k])
+            print(j)
+            print(k)
                 
 pts = [list() for k in range(i)]# 生成一个空数组
 for k in range(i):  # 初始化pts
