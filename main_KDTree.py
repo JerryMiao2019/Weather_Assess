@@ -1,52 +1,44 @@
+# -*- coding: UTF-8 -*-
 import math
-d = [['2020-4-1',1,26,53,9,30,0.68,61],
-    ['2020-4-2',1,36,57,6,29,0.57,63],
-    ['2020-4-3',1,38,55,7,32,0.65,66],
-    ['2020-4-4',2,23,188,6,24,0.51,68],
-    ['2020-4-5',1,27,79,17,40,0.66,73],
-    ['2020-4-6',2,82,152,12,54,1.03,76],
-    ['2020-4-7',1,42,93,8,39,0.74,60],
-    ['2020-4-8',1,22,65,15,45,0.93,56],
-    ['2020-4-9',0,21,40,7,24,0.48,85],
-    ['2020-4-10',1,43,53,5,38,0.55,68],
-    ['2020-4-11',1,36,60,6,42,0.55,66],
-    ['2020-4-12',1,35,93,8,45,0.67,68],
-    ['2020-4-13',1,54,101,12,61,0.82,76],
-    ['2020-4-14',1,71,92,11,45,0.86,96],
-    ['2020-4-15',1,60,88,14,33,0.80,135],
-    ['2020-4-16',2,67,95,6,27,1.01,92],
-    ['2020-4-17',1,36,63,4,33,0.71,93],
-    ['2020-4-18',1,66,76,7,49,0.91,103],
-    ['2020-4-19',1,68,66,6,30,0.83,121],
-    ['2020-4-20',0,11,32,3,13,0.38,79]]
+import csv
+import re
+
+a=[]
+with open('data.csv', 'r') as file:
+    i = 0
+    reader = csv.reader(file)
+    for row in reader:
+        i=i+1#计算行数
+        del row[-1]
+        del row[-1]
+        a.append(row)#向数组中加入数据
+    for j in range(i):#转换string到int和float
+        for k in range(1,8):
+            if k ==1:
+                a[j][k] = int(a[j][k])
+            else:
+                a[j][k] = float(a[j][k])
+                
+pts = [list() for k in range(i)]# 生成一个空数组
+for k in range(i):  # 初始化pts
+    pts[k].append(0)
+    pts[k].append(0)
+    pts[k].append(0)
+    pts[k].append(0)
+    pts[k].append(0)
+    pts[k].append(0)
+for j in range(i):#将天气数据写入pts
+    for k in range(6):
+        pts[j][k] = a[j][k+2]
 #下为KD树
-pts=[[26,53,9,30,0.68,61],
-    [36,57,6,29,0.57,63],
-    [38,55,7,32,0.65,66],
-    [23,188,6,24,0.51,68],
-    [27,79,17,40,0.66,73],
-    [82,152,12,54,1.03,76],
-    [42,93,8,39,0.74,60],
-    [22,65,15,45,0.93,56],
-    [21,40,7,24,0.48,85],
-    [43,53,5,38,0.55,68],
-    [36,60,6,42,0.55,66],
-    [35,93,8,45,0.67,68],
-    [54,101,12,61,0.82,76],
-    [71,92,11,45,0.86,96],
-    [60,88,14,33,0.80,135],
-    [67,95,6,27,1.01,92],
-    [36,63,4,33,0.71,93],
-    [66,76,7,49,0.91,103],
-    [68,66,6,30,0.83,121],
-    [11,32,3,13,0.38,79]]  # 点集，任意维度的点集
-targetPt = [27,53,9,30,0.68,61] # 目标点，任意维度的点
-class Node():
+class Node:
     def __init__(self, pt, leftBranch, rightBranch, dimension):
         self.pt = pt
+        
         self.leftBranch = leftBranch
         self.rightBranch = rightBranch
         self.dimension = dimension
+        
 class KDTree():
     def __init__(self, data):
         self.nearestPt = None
@@ -62,7 +54,8 @@ class KDTree():
     def calMedium(self, currPts):
         return len(currPts) // 2
     def calDimension(self, dimension):  # 区别就在于这里，几维就取余几
-        return (dimension + 1) % len(targetPt)
+        #return (dimension + 1) % len(targetPt)
+        return (dimension + 1) % 6
     def calDistance(self, p0, p1):
         return math.sqrt((p0[0] - p1[0]) ** 2 + (p0[1] - p1[1]) ** 2)
     def getNearestPt(self, root, targetPt):
@@ -86,25 +79,66 @@ class KDTree():
                 self.search(node.rightBranch, targetPt)
             else:
                 self.search(node.leftBranch, targetPt)
+                
 def find(lookingfor,given):#查找数组中的最小数
     for i in range(len(lookingfor)):
         if given[0] == lookingfor[i][2] and given[1] == lookingfor[i][3] and given[2] == lookingfor[i][4] and given[3] == lookingfor[i][5] and given[4] == lookingfor[i][6] and given[5] == lookingfor[i][7]:
             return lookingfor[i][1]
-if __name__ == "__main__":
+
+def main(targetPt):
     kdtree = KDTree(pts)
-    root = kdtree.createKDTree(pts, 0)
+    root = kdtree.createKDTree(pts, 5)
     pt, minDis = kdtree.getNearestPt(root, targetPt)
     #最近的点是pt，最小距离是str(minDis))
-    if find(d, pt) == 0:
-        print("优")
-    elif find(d, pt) == 1:
-        print("良")
-    elif find(d, pt) == 2:
-        print("轻度污染")
-    elif find(d, pt) == 3:
-        print("中度污染")
+    if find(a, pt) == 0:
+        return "优"
+    elif find(a, pt) == 1:
+        return "良"
+    elif find(a, pt) == 2:
+        return "轻度污染"
+    elif find(a, pt) == 3:
+        return "中度污染"
     else:
-        print("重度污染")
+        return "重度污染"
+choose = input("自行输入数据输入1，由文件写入数据输入2\n")
+if int(choose) == 1:
+    while True:
+        temp = input("输入数据，以空格或逗号分隔\n")# 目标点
+        targetPt = re.split(r'[;,\s]\s*', temp)
+        for i in range(6):
+            targetPt[i] = float(targetPt[i])
+        print(main(targetPt))
+elif int(choose) == 2:
+    #while True:
+        i = 0
+        input_1=[]
+        b=[]
+        with open('input.csv', 'r',encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                i=i+1#计算行数
+                input_1.append(row)#向数组中加入数据
+                b.append(row)
+        result = [list() for k in range(i)]
+        for k in range(i):  # 生成一个空数组
+            result[k].append(0)
+            result[k].append(0)
+        print(result)
+        for j in range(i):#转换string到int和float
+            result[j][0] = input_1[j][0]
+            for k in range(1,7):
+                input_1[j][k] = float(input_1[j][k])
+                #if k ==5:
+                b[j][k] = float(b[j][k])
+        for j in range(i):
+            del b[j][0]
+            result[j][1] = main(b[j])
+        print(result)
+        f = open('result.csv', 'w',encoding='utf-8')
+        with f:
+            writer = csv.writer(f)
+            for row in result:
+                writer.writerow(row)
 
 
 
