@@ -91,7 +91,10 @@ class aqistudy():
          self.__save_table(table,i)
 
 
-
+'''
+successfully run
+save date into files
+'''
 class HoubaoWeather():
    def __init__(self,city):
       self.url = 'http://tianqihoubao.com'
@@ -132,8 +135,8 @@ class HoubaoWeather():
       desired_capabilities = DesiredCapabilities.CHROME
       desired_capabilities [ "pageLoadStrategy" ] = "eager"
       browser.get(url)
-      time.sleep(5)
-      table = pandas.read_html(browser.page_source) [ 0 ]
+      #time.sleep(0.5)
+      table = pandas.read_html(browser.page_source)[0]
       browser.quit()
       return table
 
@@ -141,22 +144,22 @@ class HoubaoWeather():
       path = "data/city/"
       path = path.replace("city", self.city)
       pattern = r'\d+'
-      match = re.findall(pattern, date)[0]
+      match = re.findall(pattern, date)
+      a = ''
+      for i in match:
+         a+=i
       if not os.path.exists(path):
          os.makedirs(path)
       base_name = "city_month.csv"
       save_name = base_name.replace("city", self.city, 3)
-      save_name = save_name.replace("month", match)
-      table.to_csv(path + save_name, "a", index=None)
+      save_name = save_name.replace("month", a)
+      table.to_csv(path + save_name, mode = "w", index=None, encoding="utf_8_sig", sep=',')
 
    def get_all_save(self):
       month_list = self.__get_date()
-      for date in range(len(month_list)-1):
-         table = self.get_table(month_list[date+1])
-         self.__save_table(table,date)
-
-
-
+      for date in range(len(month_list)-2):
+         table = self.get_table(month_list[date+2])
+         self.__save_table(table,month_list[date+2])
 
 if __name__ != '__main__':
     pass
