@@ -128,6 +128,7 @@ class HoubaoWeather():
       option = ChromeOptions()
       option.add_experimental_option('excludeSwitches', [ 'enable-automation' ])
       option.add_experimental_option('useAutomationExtension', False)
+      option.add_argument('headless')  # 设置option
       browser = webdriver.Chrome(options=option)
       browser.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
          'source': 'Object.defineProperty(navigator, "webdriver", {get: () => undefined})'
@@ -157,9 +158,10 @@ class HoubaoWeather():
 
    def get_all_save(self):
       month_list = self.__get_date()
-      for date in range(len(month_list)-2):
-         table = self.get_table(month_list[date+2])
-         self.__save_table(table,month_list[date+2])
+      for date in range(2,15):
+         table = self.get_table(month_list[date])
+         self.__save_table(table,month_list[date])
+
 def file_name(file_dir):
     file_list=[]
     for files in os.listdir(file_dir):
