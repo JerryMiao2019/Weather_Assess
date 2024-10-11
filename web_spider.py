@@ -218,10 +218,3 @@ if __name__ == '__main__':
     a.get_all_save()
     append('data/xian/')
     change('_all.csv')
-
-
-'''if __name__ != '__main__':
-    pass
-else:
-   a = HoubaoWeather("xian")
-   a.get_all_save()'''
