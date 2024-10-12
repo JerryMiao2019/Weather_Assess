@@ -107,7 +107,7 @@ elif int(choose) == 2:
         i = 0
         input_1=[]
         b=[]
-        with open('input.csv', 'r',encoding='utf-8') as file:
+        with open('input.csv', 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
             for row in reader:
                 i=i+1#计算行数

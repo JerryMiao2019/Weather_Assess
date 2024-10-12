@@ -154,10 +154,10 @@ def find(lookingfor,given):#查找数组中的匹配值
 
 def main(targetPt):
     find_data = []
-    find_data.append(0)
-    find_data.append(0)
-    find_data.append(0)
-    k = 3
+    k = 5
+    for j in range(k):
+        find_data.append(0)
+
     tree = KDTree(pts)
     points = tree.KNN(targetPt, k)#返回[最近的n个数据，各自的距离]
     for j in range(k):
@@ -201,7 +201,7 @@ elif int(choose) == 2:
         i = 0
         input_1=[]
         b=[]
-        with open('input.csv', 'r',encoding='utf-8') as file:
+        with open('input.csv', 'r', encoding='utf-8') as file:
             reader = csv.reader(file)
             for row in reader:
                 i=i+1#计算行数
